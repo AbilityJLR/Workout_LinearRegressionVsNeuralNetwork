@@ -1,79 +1,79 @@
-# Gym Members Calories Prediction
+# การพยากรณ์แคลอรีที่เผาผลาญของสมาชิกฟิตเนส
 
-This repository contains the implementation of a Machine Learning project for predicting calories burned during exercise using a Multi-Layer Perceptron (MLP) Neural Network built with Keras and TensorFlow.
+ที่เก็บโค้ดนี้เป็นโปรเจกต์ Machine Learning สำหรับทำนายจำนวนแคลอรีที่เผาผลาญระหว่างการออกกำลังกาย โดยใช้โครงข่ายประสาทเทียมแบบ Multi-Layer Perceptron (MLP) พัฒนาด้วย Keras และ TensorFlow
 
-## Table of Contents
+## สารบัญ
 
-* [Project Overview](#project-overview)
-* [Dataset](#dataset)
-* [Methodology](#methodology)
-* [Model Architecture](#model-architecture)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Results](#results)
-* [Files Structure](#files-structure)
-* [Dependencies](#dependencies)
-* [Future Work](#future-work)
-* [License](#license)
+* [ภาพรวมโปรเจกต์](#ภาพรวมโปรเจกต์)
+* [ชุดข้อมูล](#ชุดข้อมูล)
+* [วิธีการดำเนินงาน](#วิธีการดำเนินงาน)
+* [สถาปัตยกรรมของโมเดล](#สถาปัตยกรรมของโมเดล)
+* [การติดตั้ง](#การติดตั้ง)
+* [การใช้งาน](#การใช้งาน)
+* [ผลลัพธ์](#ผลลัพธ์)
+* [โครงสร้างไฟล์](#โครงสร้างไฟล์)
+* [ไลบรารีที่ใช้](#ไลบรารีที่ใช้)
+* [งานในอนาคต](#งานในอนาคต)
+* [สิทธิ์การใช้งาน](#สิทธิ์การใช้งาน)
 
-## Project Overview
+## ภาพรวมโปรเจกต์
 
-Exercise and calorie tracking are essential for fitness planning and weight management. This project develops an MLP Neural Network to predict calories burned based on exercise features such as duration, heart rate, body temperature, age, gender, and more.
+การติดตามการออกกำลังกายและแคลอรีที่เผาผลาญเป็นสิ่งสำคัญสำหรับการวางแผนฟิตเนสและการจัดการน้ำหนัก โครงการนี้พัฒนาโครงข่ายประสาทเทียม MLP เพื่อทำนายจำนวนแคลอรีที่เผาผลาญจากคุณลักษณะต่างๆ เช่น ระยะเวลา อัตราการเต้นของหัวใจ อุณหภูมิร่างกาย อายุ เพศ และอื่นๆ
 
-## Dataset
+## ชุดข้อมูล
 
-The dataset used is the **Gym Members Exercise Tracking** dataset from Kaggle, containing 973 records with features:
+ใช้ชุดข้อมูล **Gym Members Exercise Tracking** จาก Kaggle ซึ่งมีข้อมูลทั้งหมด 973 ระเบียน โดยมีฟีเจอร์ดังนี้:
 
-* `User_ID`: Member identifier (dropped before modeling)
-* `Gender`: Male/Female (one-hot encoded)
+* `User_ID`: รหัสสมาชิก (จะถูกตัดออกก่อนนำเข้าสู่โมเดล)
+* `Gender`: เพศ (ชาย/หญิง) แปลงเป็น one-hot encoding
 * `Age`, `Height`, `Weight`
-* `Duration` (minutes)
-* `Heart_Rate` (avg bpm)
+* `Duration` (นาที)
+* `Heart_Rate` (จำนวนครั้งต่อนาทีเฉลี่ย)
 * `Body_Temp` (°C)
-* `Calories_Burned` (target)
+* `Calories_Burned`: ตัวแปรเป้าหมาย
 
-## Methodology
+## วิธีการดำเนินงาน
 
-1. **Data Preprocessing**
+1. **การเตรียมข้อมูล**
 
-   * Remove identifier columns
-   * One-Hot Encoding of `Gender`
-   * Train-test split (80/20)
-   * Feature scaling with `StandardScaler`
-2. **Baseline Model**
+   * ลบคอลัมน์รหัสสมาชิก
+   * แปลง `Gender` เป็น one-hot encoding
+   * แบ่งข้อมูลเป็นชุดฝึก (80%) และชุดทดสอบ (20%)
+   * ปรับสเกลฟีเจอร์ด้วย `StandardScaler`
+2. **โมเดลฐาน (Baseline)**
 
-   * Linear Regression for initial comparison
-3. **Neural Network**
+   * Linear Regression สำหรับเปรียบเทียบเบื้องต้น
+3. **โครงข่ายประสาทเทียม**
 
-   * Build and compile an MLP with Keras
-   * Train for 100 epochs with validation split
-4. **Evaluation**
+   * สร้างและคอมไพล์ MLP ด้วย Keras
+   * ฝึกอบรม 100 รอบ (epochs) พร้อมการแบ่ง validation
+4. **การประเมินผล**
 
    * Mean Squared Error (MSE)
    * R-squared (R²)
-   * Learning curves and actual vs. predicted plots
+   * การวาดกราฟ Learning Curves และ Actual vs. Predicted
 
-## Model Architecture
+## สถาปัตยกรรมของโมเดล
 
 ```
-Input Layer: 13 features
-Hidden Layer 1: 256 units, ReLU
-Hidden Layer 2: 128 units, ReLU
-Hidden Layer 3: 64 units, ReLU
-Output Layer: 1 unit, ReLU
+Input Layer: 13 ฟีเจอร์
+Hidden Layer 1: 256 ยูนิต, ReLU
+Hidden Layer 2: 128 ยูนิต, ReLU
+Hidden Layer 3: 64 ยูนิต, ReLU
+Output Layer: 1 ยูนิต, ReLU
 Optimizer: Adam (lr=0.001)
 Loss: Mean Squared Error
 ```
 
-## Installation
+## การติดตั้ง
 
-1. Clone this repository:
+1. โคลนที่เก็บโค้ด:
 
    ```bash
    git clone https://github.com/<your-username>/gym-calories-prediction.git
    cd gym-calories-prediction
    ```
-2. Create a virtual environment and install dependencies:
+2. สร้าง virtual environment และติดตั้งไลบรารี:
 
    ```bash
    python -m venv venv
@@ -82,54 +82,58 @@ Loss: Mean Squared Error
    pip install -r requirements.txt
    ```
 
-## Usage
+## การใช้งาน
 
-Launch Jupyter Notebook and run the final project notebook:
+เปิด Jupyter Notebook และรันไฟล์โปรเจกต์:
 
 ```bash
 jupyter notebook [CN340]_FinalProject.ipynb
 ```
 
-Follow the notebook to preprocess data, train models, and visualize results.
+จากนั้นทำตามขั้นตอนในโน้ตบุ๊กเพื่อเตรียมข้อมูล ฝึกโมเดล และดูผลลัพธ์กราฟต่างๆ
 
-## Results
+## ผลลัพธ์
 
 * **Neural Network**: MSE = 1001.19, R² = 0.985
 * **Linear Regression**: MSE = 3021.45, R² = 0.912
 
-Learning curves indicate stable convergence without overfitting. Scatter plots show predicted vs. actual calories closely aligned.
+กราฟ Learning Curves แสดงการเรียนรู้ที่เสถียร ไม่มีการ overfitting และกราฟ Scatter Plot แสดงค่าทำนายเทียบกับค่าจริงที่สอดคล้องกันอย่างใกล้เคียง
 
-## Files Structure
+## โครงสร้างไฟล์
 
 ```
-├── Report_CN340.pdf         # Project report
-├── [CN340]_FinalProject.ipynb # Jupyter notebook
-├── data/                    # Dataset files (Kaggle CSV)
-├── models/                  # Saved models and scalers
-├── requirements.txt         # Python dependencies
-└── README.md                # Project overview (this file)
+├── Report_CN340.pdf             # รายงานโปรเจกต์
+├── [CN340]_FinalProject.ipynb   # Jupyter Notebook
+├── data/                        # ไฟล์ชุดข้อมูล (CSV)
+├── models/                      # โมเดลและ scaler ที่บันทึกไว้
+├── requirements.txt             # ไลบรารีที่ต้องติดตั้ง
+└── README.md                    # ไฟล์นี้
 ```
 
-## Dependencies
+## ไลบรารีที่ใช้
 
 * Python 3.8+
 * pandas
 * numpy
 * scikit-learn
-* tensorflow (with Keras)
+* tensorflow (รวม Keras)
 * matplotlib
 
-## Future Work
+## งานในอนาคต
 
-* Optimize hyperparameters with Grid/Randomized Search
-* Explore deeper networks or alternative architectures
-* Incorporate additional features (e.g., activity type, BMI)
-* Deploy as a web or mobile application
-
-## License
-
-This project is released under the MIT License. See [LICENSE](LICENSE) for details.
+* ปรับแต่ง hyperparameters ด้วย Grid/Randomized Search
+* ทดลองสถาปัตยกรรมลึกขึ้นหรือลักษณะอื่นๆ
+* เพิ่มฟีเจอร์ใหม่ (เช่น ประเภทกิจกรรม ดัชนีมวลกาย)
+* ทำเป็นแอปเว็บหรือแอปมือถือ
 
 ---
 
-*Author: Your Name — Developed for CN340 Final Project*
+*ผู้พัฒนา:*
+
+```
+  6510742098 tanakrit maenphol
+  6510742254 sorayuth ingboon
+  6510742510 montira innoy
+```
+
+สำหรับโปรเจกต์ CN340
